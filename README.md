@@ -1,5 +1,5 @@
-# **API Testing for Todo List Webapp Project**
-This is the repository for the WADS Todolist Web Application Project which includes API testing.
+# **WADS Assignment 8 Project**
+This is the repository for WADS Assignment 8 project regarding Todolist Application.
 
 ---
 
@@ -12,3 +12,7 @@ This is the repository for the WADS Todolist Web Application Project which inclu
 ![image](https://github.com/user-attachments/assets/d7e5169d-928f-4df0-9e0b-9d1e631fcc07)
 ### - delete_todo
 ![image](https://github.com/user-attachments/assets/61a412d0-a590-47ef-86e7-57974b610973)
+
+---
+## Difficulties:
+To be honest, I had difficulty figuring out that the previous assignment was only the frontend part of the Todo List App and the project from TA Lab was the backend. I also had major difficulties figuring out how to connect the two together with CORS.
