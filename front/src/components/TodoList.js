@@ -11,10 +11,6 @@ function TodoList({ id, title, description, completed }) {
     setOpen({ edit: false, view: false });
   };
 
-  /* function to update from mongodb */
-
-  /* function to delete from mongodb */
-
   return (
     <div className={`todoList ${checked && "todoList--borderColor"}`}>
       <div>
@@ -24,12 +20,26 @@ function TodoList({ id, title, description, completed }) {
           name="checkbox"
           checked={checked}
           type="checkbox"
-          onChange={() => 1 + 1}
+          onChange={async () => {
+            const newStatus = !checked;
+            setChecked(newStatus);
+          
+            try {
+              await fetch(`http://localhost:5000/service/todo/update_todo/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  todo_status: newStatus ? "finished" : "active"
+                }),
+              });
+            } catch (err) {
+              console.error("Failed to update todo status:", err);
+            }
+          }}          
         />
         <label
           htmlFor={`checkbox-${id}`}
           className="checkbox-custom-label"
-          onClick={() => setChecked(!checked)}
         ></label>
       </div>
       <div className="todoList__body">
@@ -43,7 +53,21 @@ function TodoList({ id, title, description, completed }) {
             >
               Edit
             </button>
-            <button className="todoList__deleteButton">Delete</button>
+            <button
+              className="todoList__deleteButton"
+              onClick={async () => {
+                try {
+                  await fetch(`http://localhost:5000/service/todo/delete_todo/${id}`, {
+                    method: "DELETE",
+                  });
+                  window.location.reload();
+                } catch (err) {
+                  console.error("Failed to delete todo:", err);
+                }
+              }}
+            >
+              Delete
+            </button>
           </div>
           <button onClick={() => setOpen({ ...open, view: true })}>View</button>
         </div>

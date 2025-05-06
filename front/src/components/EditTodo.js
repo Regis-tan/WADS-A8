@@ -6,11 +6,36 @@ function EditTodo({ open, onClose, toEditTitle, toEditDescription, id }) {
   const [title, setTitle] = useState(toEditTitle);
   const [description, setDescription] = useState(toEditDescription);
 
-  /* function to update document in firestore */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const res = await fetch(`http://localhost:5000/service/todo/update_todo/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          todo_name: title,
+          todo_desc: description,
+        }),
+      });
+  
+      if (res.ok) {
+        onClose();
+        window.location.reload();
+      } else {
+        console.error("Failed to update todo");
+      }
+    } catch (err) {
+      console.error("Error updating todo:", err);
+    }
+  };
+  
 
   return (
     <Modal modalLable="Edit Todo" onClose={onClose} open={open}>
-      <form className="editTodo" name="updateTodo">
+      <form className="editTodo" name="updateTodo" onSubmit={handleSubmit}>
         <input
           type="text"
           name="title"
