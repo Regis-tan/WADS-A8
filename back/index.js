@@ -8,7 +8,6 @@ import swaggerUi from "swagger-ui-express";
 import swaggerSpec from './utils/swagger.js';
 
 import todoRoute from "./routes/todolistRoute.js";
-import usersRoute from "./routes/usersRoute.js";
 
 const app = express();
 dotenv.config()
@@ -21,7 +20,6 @@ const CONNECTION_URL = process.env.CONNECTION_URL
 const PORT = process.env.PORT
 
 app.use("/service/todo", todoRoute)
-app.use("/service/user", usersRoute)
 
 // api documentation endpoint
 app.use("/todolist/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
